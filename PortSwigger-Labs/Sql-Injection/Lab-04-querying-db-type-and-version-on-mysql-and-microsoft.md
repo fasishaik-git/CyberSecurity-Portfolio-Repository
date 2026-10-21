@@ -19,10 +19,9 @@ Because user input is placed inside the query, an attacker can append a "UNION S
 # Methodology
 1. Opened the lab and clicked a category filter (e.g: Gifts). The URL became "/filter?category=Gifts".
 2. Determined the query returns 2 columns using the "ORDER BY" technique:
-"/filter?category=Gifts'+ORDER+BY+2--", 
-"/filter?category=Gifts'+ORDER+BY+3--"
-
-"ORDER BY 3" caused an error, confirming 2 columns.
+"/filter?category=Gifts'+ORDER+BY+2--",  
+"/filter?category=Gifts'+ORDER+BY+3--", 
+"ORDER BY 3" caused an error, confirming 2 columns. 
 3. Confirmed which columns accept text by injecting a UNION SELECT with string values:
 "/filter?category=Gifts'+UNION+SELECT+'a','a'--"
 4. Retrieved the database version using "@@version", which both MySQL and Microsoft SQL Server support natively:
