@@ -1,5 +1,5 @@
 
-## Lab 03: SQL Injection Attack, Querying the Database Type and Version on Oracle
+## Lab-03: SQL Injection Attack, Querying the Database Type and Version on Oracle
 
 # Lab Information
 - **Platform:** PortSwigger Web Security Academy
