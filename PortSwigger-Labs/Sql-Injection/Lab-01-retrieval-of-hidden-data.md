@@ -1,10 +1,10 @@
 ## Lab-01: SQL Injection Vulnerability In WHERE Clause Allowing Retrieval Of Hidden Data
 
 # Lab Information
--**Platform:** PortSwigger Web Security Academy.
--**Category:** SQL Injection.
--**Difficulty:** Apprentice.
--**Status:** Solved.
+- **Platform:** PortSwigger Web Security Academy.
+- **Category:** SQL Injection.
+- **Difficulty:** Apprentice.
+- **Status:** Solved.
 
 # Objective
 Perform SQL injection attack on the product category filter so the application displays unreleased products that are normally hidden from users.
