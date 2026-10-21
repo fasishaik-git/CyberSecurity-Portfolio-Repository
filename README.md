@@ -15,16 +15,16 @@ I am an aspiring cybersecurity professional focused on penetration testing, web 
 
 ## PortSwigger Web Security Academy
 This section contains my hands-on lab write-ups, including vulnerability analysis, testing methodology, evidence, root cause, remediation and key learnings.
--SQL Injection(SQLi).
--Cross Site Scriptiong(XSS).
--Access Control Vulnerabilities.
+- SQL Injection(SQLi).
+- Cross Site Scriptiong(XSS).
+- Access Control Vulnerabilities.
 
 Lab write-ups will be added as i solve and document each lab.
 
 ## CTF Write-Ups
 This section documents my CTF practice notes, enumeration methodology, vulnerability analysis, exploitation techniques, and lessons learned.
--TryHackMe CTF write-ups.
--Other CTF write-ups.
+- TryHackMe CTF write-ups.
+- Other CTF write-ups.
 
 Write-ups will be added as i complete and document challenges.
 
