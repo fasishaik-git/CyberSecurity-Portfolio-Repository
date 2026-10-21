@@ -1,5 +1,5 @@
 
-## Lab 02: SQL Injection Vulnerability Allowing Login Bypass
+## Lab-02: SQL Injection Vulnerability Allowing Login Bypass
 
 # Lab Information
 - **Platform:** PortSwigger Web Security Academy
