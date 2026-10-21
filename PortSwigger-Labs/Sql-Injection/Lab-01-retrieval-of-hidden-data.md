@@ -23,7 +23,8 @@ Because user input is placed inside the query, an attacker can change its logic.
 5. Confirmed the vulnerability: the page returned all products, including unreleased ones, and the lab was marked as solved.
 
 # Evidence
-
+![Injected payload in URL](images/lab-01-payload.png)
+![Lab solved](images/lab-01-solved.png)
 
 # Root Cause
 User input is concatenated directly into the SQL query as a string, so the database cannot tell the developer's query logic apart from attacker-supplied input. The application also does not validate or sanitize the parameter.
