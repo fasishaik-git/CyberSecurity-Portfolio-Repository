@@ -11,7 +11,8 @@ Perform SQL injection attack on the product category filter so the application d
 
 # Vulnerability
 The application builds its SQL query by directly concatenating the "category" URL parameter into the statement, without sanitization or parameterization. The backend query looks like this:
-     "SELECT * FROM products WHERE category = 'Gifts'" And released =1
+     "SELECT * FROM products WHERE category = 'Gifts'" And released =1.
+     
 Because user input is placed inside the query, an attacker can change its logic. The "released = 1" condition is what hides unreleased products, and it can be bypassed.
 
 # Methodology
