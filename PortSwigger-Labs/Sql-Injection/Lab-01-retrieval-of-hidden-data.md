@@ -10,15 +10,15 @@
 Perform SQL injection attack on the product category filter so the application displays unreleased products that are normally hidden from users.
 
 # Vulnerability
-The application builds its SQL query by directly concatenating the 'category' URL parameter into the statement, without sanitization or parameterization. The backend query looks like this:
-     SELECT * FROM products WHERE category = 'Gifts' and released =1
-Because user input is placed inside the query, an attacker can change its logic. The 'released = 1' condition is what hides unreleased products, and it can be bypassed.
+The application builds its SQL query by directly concatenating the "category" URL parameter into the statement, without sanitization or parameterization. The backend query looks like this:
+     "SELECT * FROM products WHERE category = 'Gifts'" And released =1
+Because user input is placed inside the query, an attacker can change its logic. The "released = 1" condition is what hides unreleased products, and it can be bypassed.
 
 # Methodology
-1. Opened the lab and clicked a category filter (e.g., Gifts). The URL became "/filter?category=Gifts".
-2. Suspected the 'category' parameter was used inside a SQL query and tested it by appending a single quote ("'").
+1. Opened the lab and clicked a category filter (e.g: Gifts). The URL became "/filter?category=Gifts".
+2. Suspected the "category" parameter was used inside a SQL query and tested it by appending a single quote ("'").
 3. Injected the payload "'+OR+1=1--" into the parameter:
-     /filter?category=Gifts'+OR+1=1--
+     "/filter?category=Gifts'+OR+1=1--"
 4. The "OR 1=1" condition is always true, and "--" comments out the rest of the query, including "AND released = 1".
 5. Confirmed the vulnerability: the page returned all products, including unreleased ones, and the lab was marked as solved.
 
