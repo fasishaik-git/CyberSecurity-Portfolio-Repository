@@ -4,7 +4,7 @@
 # Lab Information
 - **Platform:** PortSwigger Web Security Academy
 - **Category:** SQL Injection
-- **Difficulty:** Practitioner
+- **Difficulty:** Apprentice
 - **Status:** Solved
 
 # Objective
