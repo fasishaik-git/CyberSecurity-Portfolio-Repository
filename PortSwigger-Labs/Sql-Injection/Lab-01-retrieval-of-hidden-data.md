@@ -1,10 +1,10 @@
 ## Lab-01: SQL Injection Vulnerability In WHERE Clause Allowing Retrieval Of Hidden Data
 
 # Lab Information
-- Platform: PortSwigger Web Security Academy.
-- Category: SQL Injection.
-- Difficulty: Apprentice.
-- Status: Solved.
+-**Platform:** PortSwigger Web Security Academy.
+-**Category:** SQL Injection.
+-**Difficulty:** Apprentice.
+-**Status:** Solved.
 
 # Objective
 Perform SQL injection attack on the product category filter so the application displays unreleased products that are normally hidden from users.
@@ -25,10 +25,7 @@ Because user input is placed inside the query, an attacker can change its logic.
 5. Confirmed the vulnerability: the page returned all products, including unreleased ones, and the lab was marked as solved.
 
 # Evidence
-(<img width="1531" height="237" alt="Screenshot 2026-10-21 102749" src="https://github.com/user-attachments/assets/6f7d56a1-8d88-4dd8-aba4-b95d93e3fa01" />
-)
-(<img width="1392" height="720" alt="Screenshot 2026-10-21 102608" src="https://github.com/user-attachments/assets/0471dcf3-421c-4dd0-8b4e-ec7d503518ef" />
-)
+
 
 # Root Cause
 User input is concatenated directly into the SQL query as a string, so the database cannot tell the developer's query logic apart from attacker-supplied input. The application also does not validate or sanitize the parameter.
