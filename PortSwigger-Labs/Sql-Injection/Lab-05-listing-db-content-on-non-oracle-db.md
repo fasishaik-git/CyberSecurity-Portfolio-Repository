@@ -30,8 +30,8 @@ Because user input is placed inside the query, an attacker can use a UNION attac
 8. The page displayed the `administrator` username alongside their password. Used these credentials to log in as `administrator`, and the lab was marked as solved.
 
 # Evidence
-![UNION SELECT payload querying information_schema](images/lab-06-payload.png)
-![Lab solved, logged in as administrator](images/lab-06-solved.png)
+![UNION SELECT payload querying information_schema](images/lab-05-payload.png)
+![Lab solved, logged in as administrator](images/lab-05-solved.png)
 
 # Root Cause
 User input is concatenated directly into the SQL query as a string, with no restriction on which tables or views can be queried through the injected `UNION SELECT`. This allows an attacker to read the database's own metadata (`information_schema`) and then pivot to extracting data from any table the database user can access, including tables never intended to be reachable from this part of the application.
