@@ -28,10 +28,10 @@ Because user input is placed inside the query, an attacker can change its logic.
 ![Lab solved](images/lab-01-solved.png)
 
 # Root Cause
-User input is concatenated directly into the SQL query as a string, so the database cannot tell the developer's query logic apart from attacker-supplied input. The application also does not validate or sanitize the parameter.
+User input is concatenated directly into the SQL query as a string, so the database cannot tell the developer's query logic apart from attacker supplied input. The application also does not validate or sanitize the parameter.
 
 # Remediation
-- Use parameterized queries (prepared statements) so user input is always treated as data, never as SQL code.
+- Use parameterized queries (prepared statements) so user input is always treated as data, never as SQL query.
 - Validate input against an allowlist of expected values (e.g: known category names).
 - Apply least privilege to the database account used by the application.
 - Avoid exposing raw database errors to users.
