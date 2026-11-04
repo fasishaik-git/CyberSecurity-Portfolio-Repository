@@ -43,6 +43,7 @@ server error.
 
 # Evidence
 ![Conditional error payload triggering a 500 response](images/lab-06-payload.png)
+
 ![Lab solved, logged in as administrator](images/lab-06-solved.png)
 
 # Root Cause
