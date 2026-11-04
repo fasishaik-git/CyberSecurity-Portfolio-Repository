@@ -10,13 +10,13 @@
 Perform SQL injection attack on the product category filter where the application displays unreleased products that are normally hidden from users.
 
 # Vulnerability
-The application builds its SQL query by directly concatenating the "category" URL parameter into the statement, without sanitization or parameterization. The backend query looks like this:
+The application builds its SQL query by directly concatenating the "category" URL parameter into the statement, without sanitization or parameterization. The backend query looks like this 
      "SELECT * FROM products WHERE category = 'Gifts'" And released =1.
      
 Because user input is placed inside the query, an attacker can change its logic. The "released = 1" condition is what hides unreleased products, and it can be bypassed.
 
 # Methodology
-1. Opened the lab and click a category filter (e.g: Gifts). The URL became "/filter?category=Gifts".
+1. Opened the lab and click a category filter called Gifts. The URL became "/filter?category=Gifts".
 2. To confirm it was only the vulnerable page tested it by appending a single quote (') at the end of URL value.
 3. Injected the payload "'+OR+1=1--" into the parameter then it was 
      "/filter?category=Gifts'+OR+1=1--"
@@ -31,8 +31,8 @@ Because user input is placed inside the query, an attacker can change its logic.
 User input is concatenated directly into the SQL query as a string, so the database cannot tell the developer's query logic apart from attacker supplied input. The application also does not validate or sanitize the parameter.
 
 # Remediation
-- Use parameterized queries (prepared statements) so user input is always treated as data, never as SQL query.
-- Validate input against an allowlist of expected values (e.g: known category names).
+- Use parameterized queries/prepared statements so user input is always treated as data, never as SQL query.
+- Validate input against an allowlist of expected values of known category names.
 - Apply least privilege to the database account used by the application.
 - Avoid exposing raw database errors to users.
 
