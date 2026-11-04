@@ -42,8 +42,8 @@ server error.
 - Go to browser's lab, click on my account, login as administrator you see the lab was solved.
 
 # Evidence
-![Conditional error payload triggering a 500 response](images/lab-blind-conditional-errors-payload.png)
-![Lab solved, logged in as administrator](images/lab-blind-conditional-errors-solved.png)
+![Conditional error payload triggering a 500 response](lab-06-payload.png)
+![Lab solved, logged in as administrator](lab-06-solved.png)
 
 # Root Cause
 User input from the `TrackingId` cookie is concatenated directly into a SQL query, and the application's error handling leaks information: it responds differently (`500` vs `200`) depending on whether an injected condition is true or false. This difference in behavior is sufficient for an attacker to reconstruct arbitrary data from the database without ever seeing direct query output.
