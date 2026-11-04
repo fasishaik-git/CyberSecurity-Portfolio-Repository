@@ -16,13 +16,9 @@ The application builds its SQL query by directly concatenating the "category" UR
 Because user input is placed inside the query, an attacker can change its logic. The "released = 1" condition is what hides unreleased products, and it can be bypassed.
 
 # Methodology
-1. Opened the lab and click a category filter called Gifts. The URL became "/filter?category=Gifts".
-2. To confirm it was only the vulnerable page tested it by appending a single quote (') at the end of URL value.
-3. Injected the payload "'+OR+1=1--" into the parameter then it was 
-     "/filter?category=Gifts'+OR+1=1--"
-4. The "OR 1=1" condition is always true, and "--" comments out the rest of the query, including "AND released = 1".
-5. Confirmed the vulnerability: the page returned all products, including unreleased ones, and the lab was marked as solved.
-
+1) Access the lab by clicking on ACCESS THE LABbutton.
+2) Navigate to Gifts page.
+3) Now look at the URL, change the value of ?category=Gifts to ?category='+OR+1=1-- and click on Enter. You see the lab is solved.
 # Evidence
 ![Injected payload in URL](images/lab-01-payload.png)
 ![Lab solved](images/lab-01-solved.png)
