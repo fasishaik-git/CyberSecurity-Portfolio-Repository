@@ -17,14 +17,10 @@ The login form builds its SQL query by directly concatenating the username and p
 Because user input is placed inside the query, an attacker can inject SQL syntax into the username field to change the query's logic and bypass the password check entirely.
 
 # Methodology
-1. Opened the lab and inspected the login form, which takes a username and password.
-2. Suspected the fields were used directly inside a SQL query and tested the username field by entering a single quote ('), which produced a database error, confirming the injection point.
-3. Injected the payload "administrator'--" into the username field, leaving the password field blank or with any value  
-Username:"administrator'--", 
-Password:anything
-4. The "--" comments out the rest of the query, including the "AND password = '...'" check, so the query effectively becomes as 
-       "SELECT * FROM users WHERE username='administrator'--'"
-5. Submitted the form and was logged in as administrator without knowing the real password. The lab was marked as solved.
+1) Access the lab by clicking on ACCESS THE LAB button.
+2) Navigate to My account.
+3) In the username field enter/type administrator'-- . In password field type anything you want. I typed (anything).
+4) Now click on login button. You see the lab is Solved.
 
 # Evidence
 ![Injected payload in login form](images/lab-02-payload.png)
