@@ -20,7 +20,7 @@ Because user input is placed inside the query, an attacker can inject SQL syntax
 1. Opened the lab and inspected the login form, which takes a username and password.
 2. Suspected the fields were used directly inside a SQL query and tested the username field by entering a single quote ('), which produced a database error, confirming the injection point.
 3. Injected the payload "administrator'--" into the username field, leaving the password field blank or with any value:
-Username:"administrator'--"
+Username:"administrator'--", 
 Password:anything
 4. The "--" comments out the rest of the query, including the "AND password = '...'" check, so the query effectively becomes:
        "SELECT * FROM users WHERE username='administrator'--'"
@@ -34,7 +34,7 @@ Password:anything
 User input from the login form is concatenated directly into the SQL query as a string instead of being passed as a parameter. This lets an attacker inject SQL comment syntax to remove the password check from the query entirely.
 
 # Remediation
-- Use parameterized queries (prepared statements) so user input is always treated as data, never as SQL code.
+- Use parameterized queries (prepared statements) so user input is always treated as data, never as SQL query.
 - Never build authentication logic by concatenating user input into a query.
 - Apply least privilege to the database account used by the application.
 - Add rate limiting and account lockout on repeated failed login attempts.
