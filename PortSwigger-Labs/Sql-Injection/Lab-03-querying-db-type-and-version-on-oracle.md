@@ -17,16 +17,25 @@ The applications product category filter builds its SQL query by directly concat
 Because user input is placed inside the query, an attacker can append a "UNION SELECT" clause to retrieve data that is not normally returned, such as the database version. Oracle requires every "SELECT" to include a "FROM" clause, even when selecting from no real table, which this lab specifically tests for.
 
 # Methodology
-1. Opened the lab and clicked a category filter called Gifts. The URL became "/filter?category=Gifts".
-2. Using the "ORDER BY" technique we determined that the query returns 2 columns using payloads 
-"/filter?category=Gifts'+ORDER+BY+1--"
-"/filter?category=Gifts'+ORDER+BY+2--"
-3. Confirmed that the both columns accept text by injecting a UNION SELECT with string values using payload 
-"/filter?category=Gifts'+UNION+SELECT+'a','a'--"
-4. Attempted to retrieve the database version using "@@version", which failed because Oracle does not support it and has no system table queryable without "FROM".
-5. Used Oracle's "v$version" table with the required "FROM" clause to retrieve the version banner using payload 
-"/filter?category=Gifts'+UNION+SELECT+banner,NULL+FROM+v$version--"
-6. The page displayed the Oracle version string as "Oracle Database 21c Express Edition..." in place of a product, confirming the injection worked and the lab was marked as solved.
+Lab-3: SQL Injection attack, querying the database
+type and version on oracle. -Solved
+
+Methodology:-
+
+1) Access the lab by clicking on ACCESS THE LAB button.
+2) Navigate to Gifts page. Now look at the URL.
+3) To confirm the vulnerability exists on Gifts page, at the end of the URL add (') after single quote. And click on enter. You'll see an internal server error message, which confirms the vulnerability exist page. Now reset it back to normal URL.
+4) To determine the number of columns exist.
+- 'ORDER BY 1--  Passed
+- 'ORDER BY 2--  Passed
+- 'ORDER BY 3--  shows internal error message.
+It means only 2 columns exist.
+5) To determine the database/database types of columns.
+- Use payload 'UNION SELECT 'a','a' FROM DUAL--(space), and inject it in the URL end and click on enter.
+- You see that a&a at the end of the page, the payload syntax is only for Oracle db. So the database/data type is Oracle.
+6) To determine the database version
+- Use payload 'UNION SELECT banner, NULL from v$version-- , and inject this payload at the end of URL.
+- You see the lab is solved with version of database below to the all category page names.
 
 # Evidence
 ![UNION SELECT payload retrieving Oracle version](images/lab-03-payload.png)
